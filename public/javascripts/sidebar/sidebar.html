@@ -1,0 +1,56 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav in" id="side-menu">
+
+            <li ui-sref-active="active">
+                <a ui-sref="home.dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            </li>
+
+
+            <li ng-class="{active: collapseVar==1}">{{dropDown}}
+                <a href="" ng-click="check(1)"><i class="fa fa-wrench fa-fw"></i>Project Menu<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=1">
+
+                    <li ui-sref-active="active">
+                        <a ui-sref="home.project">Project Home</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="home.productBacklog">View/Modify Product backlog</a>
+                    </li>
+
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li ng-class="{active: collapseVar==2}">
+                <a href="" ng-click="check(2)"><i class="fa fa-sitemap fa-fw"></i> Sprints<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=2">
+                    <li>
+                        <a ui-sref="home.startsprint">Start new Sprint</a>
+                    </li>
+                    <li>
+                        <a ui-sref="home.sprinthome">View All Sprints</a>
+                    </li>
+
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li ng-class="{active:collapseVar==4}">
+                <a href="" ng-click="check(4)"><i class="fa fa-files-o fa-fw"></i>Tasks<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=4">
+                    <li ng-class="{active: selectedMenu=='blank'}">
+                        <a ui-sref="home.createtask" ng-click="selectedMenu='blank'">Create a task</a>
+                    </li>
+                    <li>
+                        <a ui-sref="home.taskshome">View All Tasks</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>
