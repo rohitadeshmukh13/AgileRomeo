@@ -144,7 +144,20 @@ angular.module('aromeo', [
     })
       .state('login',{
         templateUrl:'pages/login.html',
-        url:'/login'
+        url:'/login',
+        controller:'AuthCtrl',
+        resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              
+              'javascripts/angularApp.js',
+              'javascripts/auth.js'
+              ]
+            })
+          }
+        }
     })
     
       .state('home.taskshome',{
