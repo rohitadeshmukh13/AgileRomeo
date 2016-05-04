@@ -164,5 +164,30 @@ angular.module('aromeo', [
         templateUrl:'pages/taskshome.html',
         url:'/taskshome'
     })
+
+      .state('home.createSub',{
+       templateUrl:'pages/createSub.html',
+       url:'/createSub'
+   })
+
+      .state('home.listMySubs',{
+       templateUrl:'pages/listMySubs.html',
+       url:'/listMySubs'
+   })
+
+      .state('home.authorProfile',{
+       templateUrl:'pages/authorProfile.html',
+       url:'/authorProfile'
+   })
+
+      .state('home.viewSub',{
+       templateUrl:'pages/viewSub.html',
+       url:'/viewSub'
+   })
+
+       .state('home.editSub',{
+       templateUrl:'pages/editSub.html',
+       url:'/editSub'
+   })
      
   }]);
