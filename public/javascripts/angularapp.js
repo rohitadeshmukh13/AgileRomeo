@@ -189,5 +189,22 @@ angular.module('aromeo', [
        templateUrl:'pages/editSub.html',
        url:'/editSub'
    })
-     
+
+       .state('home.listUsers',{
+       templateUrl:'pages/listUsers.html',
+       url:'/listUsers',
+       controller:'listUsersCtrl',
+       resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              'javascripts/main.js',
+              'javascripts/listUsers.js'
+              ]
+            })
+          }
+        }
+   })
+
   }]);

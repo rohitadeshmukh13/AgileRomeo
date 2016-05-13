@@ -7,7 +7,7 @@
             </li>
 
 
-            <li ng-class="{active: collapseVar==1}">{{dropDown}}
+<!--             <li ng-class="{active: collapseVar==1}">{{dropDown}}
                 <a href="" ng-click="check(1)"><i class="fa fa-wrench fa-fw"></i>Project Menu<span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=1">
@@ -20,7 +20,7 @@
                     </li>
 
                 </ul>
-                <!-- /.nav-second-level -->
+                
             </li>
             <li ng-class="{active: collapseVar==2}">
                 <a href="" ng-click="check(2)"><i class="fa fa-sitemap fa-fw"></i> Sprints<span
@@ -34,7 +34,7 @@
                     </li>
 
                 </ul>
-                <!-- /.nav-second-level -->
+                
             </li>
             <li ng-class="{active:collapseVar==4}">
                 <a href="" ng-click="check(4)"><i class="fa fa-files-o fa-fw"></i>Tasks<span
@@ -47,8 +47,8 @@
                         <a ui-sref="home.taskshome">View All Tasks</a>
                     </li>
                 </ul>
-                <!-- /.nav-second-level -->
-            </li>
+                
+            </li> -->
 
             <li ng-class="{active:collapseVar==5}">
                 <a href="" ng-click="check(5)"><i class="fa fa-envelope-o fa-fw"></i>My Submissions<span
@@ -62,6 +62,10 @@
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
+            </li>
+
+            <li ng-class="{active:collapseVar==6}">
+                <a ui-sref="home.listUsers" ng-click="selectedMenu='blank'">List Users</a>
             </li>
 
         </ul>

@@ -48,6 +48,20 @@ router.post('/login',function(req,res,next){
   })(req, res, next);
 
 });
+
+router.get('/api/users', function(req, res, next) {
+
+        // use mongoose to get all todos in the database
+        User.find(function(err, users) {
+
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err)
+                res.send(err)
+
+            res.json(users); // return all todos in JSON format
+        });
+    });
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
