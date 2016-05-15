@@ -6,7 +6,7 @@
  * # MainCtrl
  * Controller of the Agileromeo app
  */
-angular.module('aromeo')
+angular.module('aromeo',['tango','paper'])
   .controller('MainCtrl', function($scope,$position) {
     $scope.testval='TEST';
   });

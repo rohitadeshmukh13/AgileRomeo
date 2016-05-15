@@ -12,6 +12,7 @@ var app = express();
 var mongoose= require('mongoose');
 
 require('./models/Users');
+require('./models/Papers');
 
 mongoose.connect('mongodb://localhost/romeodb');
 
@@ -21,6 +22,7 @@ require('./config/passport');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var paperRoutes = require('./routes/papers');
 
 
 // view engine setup
@@ -38,7 +40,8 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(passport.initialize());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/', users);
+app.use('/', paperRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

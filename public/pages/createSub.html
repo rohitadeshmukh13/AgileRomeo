@@ -27,10 +27,10 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- <form role="form"> -->
-                        <form id="CreateSub" method="post" role="form"> <!-- class="form-horizontal" -->
+                        <form id="CreateSub" method="post" role="form" ng-controller="PapersCtrl"> <!-- class="form-horizontal" -->
                             <div class="form-group">
                                 <label>Title</label>
-                                <input class="form-control">
+                                <input class="form-control" ng-model="formData.title">
                             </div>
                             <div class="form-group">
                                 <label>Authors</label>
@@ -52,7 +52,7 @@
                                 <label>Upload the Paper</label>
                                 <input type="file">
                             </div>
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-default" ng-click="createPaper()">
                                 <a ui-sref="home.listMySubs">Submit</a>
                             </button>
                             <button type="reset" class="btn btn-default">Reset</button>

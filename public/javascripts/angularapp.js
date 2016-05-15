@@ -167,7 +167,19 @@ angular.module('aromeo', [
 
       .state('home.createSub',{
        templateUrl:'pages/createSub.html',
-       url:'/createSub'
+       url:'/createSub',
+       controller:'PapersCtrl',
+       resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              'javascripts/main.js',
+              'javascripts/papers.js'
+              ]
+            })
+          }
+        }
    })
 
       .state('home.listMySubs',{
@@ -190,17 +202,17 @@ angular.module('aromeo', [
        url:'/editSub'
    })
 
-       .state('home.listUsers',{
-       templateUrl:'pages/listUsers.html',
-       url:'/listUsers',
-       controller:'listUsersCtrl',
+       .state('home.users',{
+       templateUrl:'pages/users.html',
+       url:'/users',
+       controller:'UsersCtrl',
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
               name:'aromeo',
               files:[
               'javascripts/main.js',
-              'javascripts/listUsers.js'
+              'javascripts/users.js'
               ]
             })
           }
