@@ -5,7 +5,7 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-<div class="row">
+<div class="row" ng-app="aromeo">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -27,9 +27,15 @@
                         <tbody ng-repeat="paper in papers">
                             <!-- <tr class="odd gradeX">
                             <tr class="even gradeC"> -->
-                            <tr class="odd gradeX">
-                                <td>{{$index + 1}}</td>
-                                <td><a ui-sref="home.viewSub">{{paper.title}}</a></td>
+                                <tr class="odd gradeX">
+
+                                    <td>{{$index + 1}}</td>
+                                    <td>
+                                      <a ui-sref="home.viewSub" ng-click="savePaper(paper);">
+                                        {{paper.title}}
+                                    </a>
+                                    </td>
+                                
                                 <td>
                                     <select class="form-control">
                                         <option>incompleted</option>

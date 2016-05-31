@@ -15,7 +15,7 @@ var PaperSchema = new mongoose.Schema({
 	status: {
         type: String,
         enum: ['Incomplete', 'Completed', 'Closed', 'Accepted', 'Rejected']
-        // Completed - submission completed
+        // Completed - submission completed - every field filled
         // Closed - After the conference is over, auto changed to 'Closed'.
       }
       //,

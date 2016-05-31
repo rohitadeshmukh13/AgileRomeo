@@ -22,6 +22,7 @@ router.get('/api/papers', function(req, res, next) {
         // create a paper, information comes from AJAX request from Angular
         Paper.create({
             title : req.body.title
+            //paperAuthors : req.body.authors
         }, function(err, paper) {
             if (err)
                 res.send(err);
@@ -35,6 +36,26 @@ router.get('/api/papers', function(req, res, next) {
         });
 
     });
+
+	// update a paper
+	router.put('/api/papers/:paper_id', function(req, res) {
+
+		Paper.findById(req.params.paper_id, function(err, paper) {
+			if (err)
+				res.send(err);
+
+		    // Update the existing paper
+		    paper.title = req.body.title;
+
+		    // Save the paper and check for errors
+		    paper.save(function(err) {
+		    	if (err)
+		    		res.send(err);
+
+		    	res.json(paper);
+		    });
+		});
+	});
 
     // delete a paper
     router.delete('/api/papers/:paper_id', function(req, res) {
@@ -52,6 +73,23 @@ router.get('/api/papers', function(req, res, next) {
             });
         });
     });
+
+	// retrieve a single paper
+	router.param('paper', function(req, res, next, id) {
+	  var query = Paper.findById(id);
+
+	  query.exec(function (err, paper){
+	    if (err) { return next(err); }
+	    if (!paper) { return next(new Error('can\'t find paper')); }
+
+	    req.paper = paper;
+	    return next();
+	  });
+	});
+
+	router.get('/api/papers/:paper', function(req, res) {
+		res.json(req.paper);
+	});
 
 
 module.exports = router;

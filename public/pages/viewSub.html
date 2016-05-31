@@ -10,6 +10,12 @@
 }
 </style>
 
+<!-- 
+TODOs
+Add a 'confirm' pop-up on clicking WITHDRAW
+
+ -->
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Submission</h1>
@@ -17,7 +23,7 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-<div class="row">
+<div class="row" ng-app="aromeo">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -27,12 +33,14 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- <form role="form"> -->
-                        <form id="CreateSub" method="post" ng-controller="PapersCtrl" role="form"> <!-- class="form-horizontal" -->
-                            <div class="form-group">
-                                <label>Title</label>
-                                <br>
-                                <div ng-model="paper.title"></div>
-                            </div>
+                        <form id="ViewSub" method="post" ng-controller="PapersCtrl" ng-init="paper=getPaper();" role="form"> 
+                        <!-- class="form-horizontal" -->
+                        <!-- ng-init="paper=getPaper();" -->
+                        <div class="form-group">
+                            <label>Title</label>
+                            <br>
+                            {{paper.title}}
+                        </div>
                             <div class="form-group">
                                 <label>Authors</label>
                                 <br>
@@ -78,10 +86,12 @@
                                 <br>
                                 NetSec
                             </div>
-                            <button type="submit" class="btn btn-default"><a ui-sref="home.editSub">Edit</a>
+                            <button type="submit" ui-sref="home.editSub" class="btn btn-default">Edit
                             </button>
-                            <button type="" class="btn btn-default">Withdraw</button>
-                            <button type="back" class="btn btn-default">Back</button>
+                                <button ng-click="deletePaper(paper._id);" ui-sref="home.listMySubs" class="btn btn-default">
+                                    Withdraw
+                                </button>
+                            <button type="back" ui-sref="home.listMySubs" class="btn btn-default">Back</button>
                         </form>
                     </div>
                     <!-- /.col-lg-6 (nested) -->

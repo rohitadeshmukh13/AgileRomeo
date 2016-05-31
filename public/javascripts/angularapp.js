@@ -184,7 +184,19 @@ angular.module('aromeo', [
 
       .state('home.listMySubs',{
        templateUrl:'pages/listMySubs.html',
-       url:'/listMySubs'
+       url:'/listMySubs',
+       controller:'PapersCtrl',
+       resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              'javascripts/main.js',
+              'javascripts/papers.js'
+              ]
+            })
+          }
+        }
    })
 
       .state('home.authorProfile',{
@@ -194,7 +206,19 @@ angular.module('aromeo', [
 
       .state('home.viewSub',{
        templateUrl:'pages/viewSub.html',
-       url:'/viewSub'
+       url:'/viewSub',
+       controller:'PapersCtrl',
+       resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              'javascripts/main.js',
+              'javascripts/papers.js'
+              ]
+            })
+          }
+        }
    })
 
        .state('home.editSub',{
