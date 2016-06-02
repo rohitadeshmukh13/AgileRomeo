@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
 <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
 
+<link rel="stylesheet" href="stylesheets/autocomplete.css">
+
+
 <style type="text/css">
 .bootstrap-tagsinput {
     width: 100%;
@@ -23,7 +26,7 @@ Input validations
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-<div class="row">
+<div class="row" ng-app='aromeo'>
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -41,25 +44,28 @@ Input validations
                             <div class="form-group">
                                 <label>Authors</label>
                                 <br>
-                                <!-- <a ui-sref="home.authorProfile">Name1</a> -->
-                                <input name="authors" class="form-control" value="name1">
-                                <!-- <input name="authors" class="form-control" ng-model="formData.authors" ng-list required>
-                                <span role="alert">
-                                    <span class="error" ng-show="CreateSub.authors.$error.required">
-                                        Required!</span>
+                                <!-- <input class="form-control" ng-model="dispAuthors"> -->
+
+                                <!-- <input class="form-control" value="a,b" data-role="tagsinput" > -->
+
+                                <span ng-repeat="author in formData.authors">
+                                    <a class="btn btn-social-icon btn-times" ng-click="deleteAuthor(author);"><i class="fa fa-times"></i></a>
+                                    {{author.username}}
                                 </span>
+                                <br/>
+                               
+                                <autocomplete ng-model="selected" data="objects" on-type="updateObjects"></autocomplete>
+
                                 <br>
-                                <tt>authors = {{formData.authors}}</tt><br/> -->
-                                <!-- (Note: Only registered authors, no user customized i/p allowed) 
-                                TODO: use Ajax here - make it 'email TO' kinda field. If too difficult, open a popup and in that give a search alternative -->
+                                
                             </div>
                             <div class="form-group">
                                 <label>Abstract</label>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" ng-model="formData.abstract" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Tags</label>
-                                <input type="text" value="DSS,TK" data-role="tagsinput" class="form-control" />
+                                <input type="text" placeholder="comma separated tags" data-role="tagsinput" class="form-control" ng-list required ng-model="formData.keywords">
                             </div>
                              <div class="form-group">
                                 <label>Upload the Paper</label>

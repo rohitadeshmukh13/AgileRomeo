@@ -21,8 +21,10 @@ router.get('/api/papers', function(req, res, next) {
 
         // create a paper, information comes from AJAX request from Angular
         Paper.create({
-            title : req.body.title
-            //paperAuthors : req.body.authors
+            title : req.body.title,
+            //paperAuthors : req.body.authors,
+            abstract : req.body.abstract,
+            keywords : req.body.keywords
         }, function(err, paper) {
             if (err)
                 res.send(err);

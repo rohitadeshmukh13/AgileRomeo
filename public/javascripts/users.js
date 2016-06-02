@@ -6,8 +6,9 @@
  * # MainCtrl
  * Controller of the Agileromeo app
  */
- angular.module('tango',[])
- .factory('Users', function($http){
+ var app = angular.module('tango',[]);
+ // angular.module('tango',[])
+ app.factory('Users', function($http){
    return {
     get : function() {
       return $http.get('/api/users');
@@ -16,8 +17,8 @@
 });
 
 
-  angular.module('tango',[])
-  .controller('UsersCtrl', function($scope,$http){
+  // angular.module('tango',[])
+  app.controller('UsersCtrl', function($scope,$http){
   
   $scope.formData = {};
 

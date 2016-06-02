@@ -25,9 +25,9 @@
 });
 
 
-  angular.module('aromeo',[])
+  angular.module('aromeo',['autocomplete','autocomp','tango'])
 
-  .controller('PapersCtrl', ['$scope','$http','$rootScope', function($scope,$http,$rootScope){
+  .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users', function($scope,$http,$rootScope,ObjectRetriever,Users){
   
   //$scope.formData = {};
 
@@ -82,6 +82,43 @@
             var temp = JSON.parse(JSON.stringify($rootScope.ppr)); // only return copy of object, not ref
             return temp;
         };
+
+        $scope.usernames = [];
+        // $scope.formData = [];
+        // $scope.formData.authors = [];
+        var j = 0;
+
+        Users.get()
+                .success(function(data) {
+                        $scope.users = data;
+                        for (var i = 0; i < data.length; i++) {
+                             $scope.usernames[i] = $scope.users[i].username;
+                        }
+                })
+                .error(function(data) {
+                        console.log('Error: ' + data);
+                });
+
+        // gives another object array on change
+        $scope.updateObjects = function(){
+            // ObjectRetriever could be some service returning a promise
+            $scope.newobjects = ObjectRetriever.getobjects($scope.usernames);
+            $scope.newobjects.then(function(data){
+                $scope.objects = data;
+            });
+                        // for (var i = 0; i < $scope.users.length; i++) {
+                        //     if($scope.selected == $scope.users[i].username){
+                        //         $scope.formData.authors[j++] = $scope.users[i];
+                        //         $scope.selected = "";
+                        //     }
+                        // }
+        }
+
+        $scope.deleteAuthor = function(author){
+            var index=$scope.formData.authors.indexOf(author);
+            $scope.formData.authors.splice(index,1); 
+            j--; 
+        }
 
 }]);
 

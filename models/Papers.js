@@ -20,6 +20,7 @@ var PaperSchema = new mongoose.Schema({
       }
       //,
       //file type - https://www.npmjs.com/package/mongoose-file
+      //  createdAt: {type: Date, default: Date.now}, - https://scotch.io/tutorials/build-a-mean-stack-file-uploader-app-with-filestack#the-server
 });
 
 

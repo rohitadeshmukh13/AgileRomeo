@@ -175,7 +175,10 @@ angular.module('aromeo', [
               name:'aromeo',
               files:[
               'javascripts/main.js',
-              'javascripts/papers.js'
+              'javascripts/papers.js',
+              'javascripts/autocomplete/autocomplete.js',
+              'javascripts/autocomplete/autocomp.js',
+              'javascripts/users.js'
               ]
             })
           }
