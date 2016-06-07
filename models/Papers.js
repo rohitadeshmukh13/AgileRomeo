@@ -1,15 +1,22 @@
 var mongoose=require('mongoose');
 
 var PaperSchema = new mongoose.Schema({
+	 _creator : { 
+	 	type: Number,
+	 	ref: 'User'
+	 },
+
 	title:String,
+
 	paperAuthors:[{
-		type:mongoose.Schema.Types.ObjectId,
+		type:Number,
 		ref:'User'
 	}],
-	paperReviewer:[{
-		type:mongoose.Schema.Types.ObjectId,
+	paperReviewers:[{
+		type:Number,
 		ref:'User'
 	}],
+	
 	abstract:String,
 	keywords:[String],
 	status: {

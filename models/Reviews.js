@@ -2,8 +2,8 @@ var mongoose=require('mongoose');
 
 var ReviewSchema = new mongoose.Schema({
 	//sprintID: Number,
-	forPaper: [{type:mongoose.Schema.Types.ObjectId,ref:'Paper'}],
-	doneBy: [{type:mongoose.Schema.Types.ObjectId,ref:'User'}],
+	forPaper: [{type:Number,ref:'Paper'}],
+	doneBy: [{type:Number,ref:'User'}],
 	summary : String,
 	overallRating:String,
 	reviewerExpertise:String,

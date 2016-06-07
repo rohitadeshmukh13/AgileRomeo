@@ -27,7 +27,8 @@
 
   angular.module('aromeo',['autocomplete','autocomp','tango'])
 
-  .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users', function($scope,$http,$rootScope,ObjectRetriever,Users){
+  .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth', 
+    function($scope,$http,$rootScope,ObjectRetriever,Users,auth){
   
   //$scope.formData = {};
 
@@ -84,8 +85,9 @@
         };
 
         $scope.usernames = [];
-        // $scope.formData = [];
-        // $scope.formData.authors = [];
+        $scope.formData = [];
+        $scope.formData.authors = [];
+        $scope.formData.authorIDs = [];
         var j = 0;
 
         Users.get()
@@ -106,18 +108,31 @@
             $scope.newobjects.then(function(data){
                 $scope.objects = data;
             });
-                        // for (var i = 0; i < $scope.users.length; i++) {
-                        //     if($scope.selected == $scope.users[i].username){
-                        //         $scope.formData.authors[j++] = $scope.users[i];
-                        //         $scope.selected = "";
-                        //     }
-                        // }
+                        for (var i = 0; i < $scope.users.length; i++) {
+                            if($scope.selected == $scope.users[i].username){
+                                $scope.formData.authors[j] = $scope.users[i];
+                                $scope.formData.authorIDs[j++] = $scope.users[i]._id;
+                                $scope.selected = "";
+                            }
+                        }
         }
 
         $scope.deleteAuthor = function(author){
             var index=$scope.formData.authors.indexOf(author);
             $scope.formData.authors.splice(index,1); 
+            $scope.formData.authorIDs.splice(index,1);
             j--; 
+        }
+
+        $scope.callCreatePaper = function(){
+            Users.searchByName(auth.currentUser())
+                .success(function(data) {
+                    $scope.formData.creator = data._id;
+                    $scope.createPaper();
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
         }
 
 }]);

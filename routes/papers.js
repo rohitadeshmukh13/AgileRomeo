@@ -25,6 +25,9 @@ router.get('/api/papers', function(req, res, next) {
             //paperAuthors : req.body.authors,
             abstract : req.body.abstract,
             keywords : req.body.keywords
+
+            _creator : req.body.creator,
+            paperAuthors : req.body.authorIDs
         }, function(err, paper) {
             if (err)
                 res.send(err);

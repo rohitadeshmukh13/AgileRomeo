@@ -178,7 +178,8 @@ angular.module('aromeo', [
               'javascripts/papers.js',
               'javascripts/autocomplete/autocomplete.js',
               'javascripts/autocomplete/autocomp.js',
-              'javascripts/users.js'
+              'javascripts/users.js',
+              'javascripts/auth.js'
               ]
             })
           }

@@ -12,6 +12,14 @@
    return {
     get : function() {
       return $http.get('/api/users');
+    },
+
+    searchById : function(id) {
+      return $http.get('/api/users/' + id);
+    },
+
+    searchByName : function(username) {
+      return $http.get('/api/users/search/' + username);
     }
   }
 });
@@ -30,5 +38,25 @@
                 .error(function(data) {
                         console.log('Error: ' + data);
                 });
+
+        $scope.searchById = function(userid) {
+          $http.get('/api/users/' + userid)
+                  .success(function(data) {
+                          $scope.user = data;
+                  })
+                  .error(function(data) {
+                          console.log('Error: ' + data);
+                  });
+        };
+
+        $scope.searchByName = function(username) {
+          $http.get('/api/users/search/' + username)
+                  .success(function(data) {
+                          $scope.currentUser = data;
+                  })
+                  .error(function(data) {
+                          console.log('Error: ' + data);
+                  });
+        }
 
 });

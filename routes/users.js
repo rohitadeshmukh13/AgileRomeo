@@ -17,7 +17,23 @@ router.get('/api/users', function(req, res, next) {
 
 });
 
-	router.param('user', function(req, res, next, id) {
+router.param('username', function(req, res, next, username) {
+	  var query = User.findOne({ 'username': username });
+
+	  query.exec(function (err, user){
+	    if (err) { return next(err); }
+	    if (!user) { return next(new Error('can\'t find user')); }
+
+	    req.user = user;
+	    return next();
+	  });
+	});
+
+router.get('/api/users/search/:username', function(req, res) {
+	res.json(req.user);
+});
+
+	router.param('userid', function(req, res, next, id) {
 	  var query = User.findById(id);
 
 	  query.exec(function (err, user){
@@ -29,7 +45,7 @@ router.get('/api/users', function(req, res, next) {
 	  });
 	});
 
-	router.get('/api/users/:user', function(req, res) {
+	router.get('/api/users/:userid', function(req, res) {
 		res.json(req.user);
 	});
 
