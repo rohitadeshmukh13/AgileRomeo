@@ -12,11 +12,7 @@ var UserSchema = new mongoose.Schema({
         default : 'User'
   },
   papersAuthored:[{
-    type: mongoose.Schema.Types.ObjectId, 
-    ref:'Paper'
-  }],
-  papersToReview:[{ 
-    type: mongoose.Schema.Types.ObjectId, 
+    type: Number, 
     ref:'Paper'
   }]
 });

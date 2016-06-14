@@ -85,7 +85,7 @@
         };
 
         $scope.usernames = [];
-        $scope.formData = [];
+        $scope.formData = new Object();
         $scope.formData.authors = [];
         $scope.formData.authorIDs = [];
         var j = 0;
@@ -127,7 +127,8 @@
         $scope.callCreatePaper = function(){
             Users.searchByName(auth.currentUser())
                 .success(function(data) {
-                    $scope.formData.creator = data._id;
+                    // $scope.formData.creator = data._id;
+                    $scope.formData.creator = data;
                     $scope.createPaper();
                 })
                 .error(function(data) {

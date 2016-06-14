@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose= require('mongoose');
 
 var Paper=mongoose.model('Paper');
+var User=mongoose.model('User');
 // get, create, delete
 
 router.get('/api/papers', function(req, res, next) {
@@ -24,21 +25,52 @@ router.get('/api/papers', function(req, res, next) {
             title : req.body.title,
             //paperAuthors : req.body.authors,
             abstract : req.body.abstract,
-            keywords : req.body.keywords
+            keywords : req.body.keywords,
 
             _creator : req.body.creator,
-            paperAuthors : req.body.authorIDs
+            paperAuthors : req.body.authors // need to push? Paper.paperAuthors.push()?
         }, function(err, paper) {
             if (err)
                 res.send(err);
+            else {
+                    for (var i = 0; i < req.body.authors.length; i++){
+                        paper.paperAuthors.push(req.body.authors[i]);
+                        paper.save(function(err) {
+                            if (err)
+                                res.send(err);
 
-            // get and return all the papers after you create another
-            Paper.find(function(err, papers) {
-                if (err)
-                    res.send(err)
-                res.json(papers);
+                            //res.json(paper);
+                        });
+                    }
+
+
+                // After creation of paper, update paperAuthors' profiles to add papersAuthored
+                // for all UserObj.papersAuthored.push(paper);
+
+                // for (var i = 0; i < paper.paperAuthors.length; i++){
+
+                //     paper.paperAuthors[i].push(paper);
+                    
+                    // User
+                    // .find({_id : paper.paperAuthors[i]._id})
+                    // .exec(function(err, user){
+
+                    //     console.log('#  User:::::::::: ', user);
+
+                    //     user.papersAuthored.push(paper);
+
+                    //     user.save(function(err) {
+                    //         if (err)
+                    //             res.send(err);
+
+                    //         res.json(user);
+                    //     });
+                    // });
+
+                    // }
+                }
+
             });
-        });
 
     });
 
