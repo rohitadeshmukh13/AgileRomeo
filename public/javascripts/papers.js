@@ -54,6 +54,9 @@
 
         $scope.updatePaper = function(id) {
                 //$scope.formData.updatedAt = Date.now;
+                if($scope.formData.title == null || $scope.formData.title ==""){
+                    return;
+                }
                 $http.put('/api/papers/' + id, $scope.formData)
                         .success(function(data) {
                                 //$scope.formData = {}; // clear the form so our user is ready to enter another
