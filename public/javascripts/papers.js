@@ -141,6 +141,9 @@
         }
 
         $scope.callCreatePaper = function(){
+            if($scope.formData.title == null || $scope.formData.title ==""){
+                return;
+            }
             Users.searchByName(auth.currentUser())
                 .success(function(data) {
                     // $scope.formData.creator = data._id;
@@ -151,6 +154,21 @@
                     console.log('Error: ' + data);
                 });
         }
+
+        // $scope.mouseHoverIn = function(){
+        //     this.flag = true;
+        // };
+
+        // $scope.mouseHoverOut = function(){
+        //     this.flag = false;
+        // };
+
+        $scope.checkInput = function(input){
+            if(input == null || input == "")
+                this.errflag = true;
+            else
+                this.errflag = false;
+        };
 
 }]);
 

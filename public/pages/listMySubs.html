@@ -36,13 +36,14 @@
                                     </a>
                                     </td>
                                 <td>
-                                    <select class="form-control">
+                                    {{paper.status}}
+                                    <!-- <select class="form-control">
                                         <option>incompleted</option>
                                         <option>completed</option>
                                         <option selected="true">Closed</option>
                                         <option>accepted</option>
                                         <option>rejected</option>
-                                    </select>
+                                    </select> -->
                                 </td>
                                 <td class="center">{{paper.createdAt | date:'dd MMM yyyy'}}</td>
                                 <td class="center">ACM</td>

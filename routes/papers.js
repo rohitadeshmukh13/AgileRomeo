@@ -26,6 +26,11 @@ router.get('/api/papers', function(req, res, next) {
 	router.post('/api/papers', function(req, res) {
 
         // create a paper, information comes from AJAX request from Angular
+        var status =  "Incomplete";
+        if (req.body.title != null && req.body.title != "" && req.body.abstract != null 
+            && req.body.abstract != "")
+            status = "Completed";
+
         Paper.create({
             title : req.body.title,
             //paperAuthors : req.body.authors,
@@ -33,7 +38,9 @@ router.get('/api/papers', function(req, res, next) {
             keywords : req.body.keywords,
 
             _creator : req.body.creator,
-            authors : req.body.authors // need to push? Paper.paperAuthors.push()?
+            authors : req.body.authors, // need to push? Paper.paperAuthors.push()?
+            status
+            
         }, function(err, paper) {
             if (err)
                 res.send(err);
@@ -90,11 +97,16 @@ router.get('/api/papers', function(req, res, next) {
 				res.send(err);
 
 		    // Update the existing paper
+             var statusTemp =  "Incomplete";
+            if (req.body.title != null && req.body.abstract != null)
+            statusTemp = "Completed";
+
 		    paper.title = req.body.title;
             paper.abstract = req.body.abstract;
             paper.keywords = req.body.keywords;
             paper.authors = req.body.authors;
             paper.updatedAt = datenow;
+            paper.status = statusTemp;
 
 		    // Save the paper and check for errors
 		    paper.save(function(err) {

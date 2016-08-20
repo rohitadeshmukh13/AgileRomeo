@@ -239,7 +239,8 @@ angular.module('aromeo', [
               'javascripts/autocomplete/autocomplete.js',
               'javascripts/autocomplete/autocomp.js',
               'javascripts/users.js',
-              'javascripts/auth.js'
+              'javascripts/auth.js',
+              'javascripts/utilities/ngMsgs.js'
               ]
             })
           }

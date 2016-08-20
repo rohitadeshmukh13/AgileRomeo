@@ -38,10 +38,16 @@ Input validations
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- <form role="form"> -->
-                        <form id="CreateSub" method="post" role="form" ng-controller="PapersCtrl"> <!-- class="form-horizontal" -->
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input class="form-control" ng-model="formData.title">
+                        <form name="CreateSubForm" method="post" role="form" ng-controller="PapersCtrl" novalidate> <!-- class="form-horizontal" -->
+                            
+                            <div class="form-group" ng-class="{'has-error' : CreateSubForm.ptitle.$invalid && !CreateSubForm.ptitle.$pristine }">
+
+                                <label>Title*</label>
+
+                                <input class="form-control" ng-model="formData.title" name="ptitle" ng-blur="checkInput(formData.title);" ng-class="{ 'has-error' : CreateSubForm.ptitle.$invalid && !CreateSubForm.ptitle.$pristine }" required />
+
+                                <p ng-show="errflag || (CreateSubForm.ptitle.$invalid && !CreateSubForm.ptitle.$pristine)" class="help-block" style="color:maroon">Title is a required field.</p>
+
                             </div>
                             <div class="form-group">
                                 <label>Authors</label>
@@ -67,16 +73,20 @@ Input validations
                             </div>
                             <div class="form-group">
                                 <label>Tags</label>
-                                <input type="text" placeholder="comma separated tags" data-role="tagsinput" class="form-control" ng-list required ng-model="formData.keywords">
+                                <input type="text" placeholder="comma separated tags" data-role="tagsinput" class="form-control" ng-list ng-model="formData.keywords">
                             </div>
                              <div class="form-group">
                                 <label>Upload the Paper</label>
                                 <input type="file">
                             </div>
-                            <button type="submit" ui-sref="home.listMySubs" class="btn btn-default" ng-click="callCreatePaper()">
+
+                            <!-- <p ng-show="CreateSubForm.$invalid" class="help-block" style="color:maroon">Please enter all the required* fields.</p> -->
+
+                            <button type="submit" name="submitBtn" ui-sref="home.listMySubs" class="btn btn-default" ng-disabled="CreateSubForm.$invalid" ng-click="callCreatePaper()">
                                 Submit
                             </button>
                             <button type="reset" class="btn btn-default">Reset</button>
+
                         </form>
                     </div>
                     <!-- /.col-lg-6 (nested) -->
