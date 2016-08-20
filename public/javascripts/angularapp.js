@@ -227,7 +227,23 @@ angular.module('aromeo', [
 
        .state('home.editSub',{
        templateUrl:'pages/editSub.html',
-       url:'/editSub'
+       url:'/editSub',
+       controller:'PapersCtrl',
+       resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'aromeo',
+              files:[
+              'javascripts/main.js',
+              'javascripts/papers.js',
+              'javascripts/autocomplete/autocomplete.js',
+              'javascripts/autocomplete/autocomp.js',
+              'javascripts/users.js',
+              'javascripts/auth.js'
+              ]
+            })
+          }
+        }
    })
 
        .state('home.users',{

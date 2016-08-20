@@ -53,6 +53,7 @@
         };
 
         $scope.updatePaper = function(id) {
+                //$scope.formData.updatedAt = Date.now;
                 $http.put('/api/papers/' + id, $scope.formData)
                         .success(function(data) {
                                 //$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -86,9 +87,15 @@
 
         $scope.usernames = [];
         $scope.formData = new Object();
-        $scope.formData.authors = [];
-        $scope.formData.authorIDs = [];
         var j = 0;
+        $scope.formData.authors = [];
+        /*if(typeof $scope.formData.authors === 'undefined' || $scope.formData.authors === null){
+            $scope.formData.authors = [];
+        }
+        else{
+            j = $scope.formData.authors.length;
+        }*/
+        $scope.formData.authorIDs = [];
 
         Users.get()
                 .success(function(data) {
@@ -108,17 +115,26 @@
             $scope.newobjects.then(function(data){
                 $scope.objects = data;
             });
-                        for (var i = 0; i < $scope.users.length; i++) {
-                            if($scope.selected == $scope.users[i].username){
-                                $scope.formData.authors[j] = $scope.users[i];
-                                $scope.formData.authorIDs[j++] = $scope.users[i]._id;
-                                $scope.selected = "";
-                            }
-                        }
+
+            j = $scope.formData.authors.length;
+            if(typeof $scope.formData.authorIDs === 'undefined' || $scope.formData.authorIDs === null){
+                $scope.formData.authorIDs = [];
+            }
+            for (var i = 0; i < $scope.users.length; i++) {
+                if($scope.selected == $scope.users[i].username){
+                    $scope.formData.authors[j] = $scope.users[i];
+                    $scope.formData.authorIDs[j++] = $scope.users[i]._id;
+                    $scope.selected = "";
+                }
+            }
         }
 
         $scope.deleteAuthor = function(author){
             var index=$scope.formData.authors.indexOf(author);
+            j = $scope.formData.authors.length;
+            if(typeof $scope.formData.authorIDs === 'undefined' || $scope.formData.authorIDs === null){
+                $scope.formData.authorIDs = [];
+            }
             $scope.formData.authors.splice(index,1); 
             $scope.formData.authorIDs.splice(index,1);
             j--; 

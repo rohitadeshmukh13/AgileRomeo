@@ -4,11 +4,16 @@ var mongoose= require('mongoose');
 
 var Paper=mongoose.model('Paper');
 var User=mongoose.model('User');
+
+var datenow = new Date();
 // get, create, delete
 
 router.get('/api/papers', function(req, res, next) {
 
-	Paper.find(function(err, papers) {
+	Paper.find()
+        .populate('authors')
+        .exec(function(err, papers)
+        {
 
             if (err)
             	res.send(err)
@@ -28,20 +33,23 @@ router.get('/api/papers', function(req, res, next) {
             keywords : req.body.keywords,
 
             _creator : req.body.creator,
-            paperAuthors : req.body.authors // need to push? Paper.paperAuthors.push()?
+            authors : req.body.authors // need to push? Paper.paperAuthors.push()?
         }, function(err, paper) {
             if (err)
                 res.send(err);
             else {
-                    for (var i = 0; i < req.body.authors.length; i++){
-                        paper.paperAuthors.push(req.body.authors[i]);
-                        paper.save(function(err) {
-                            if (err)
-                                res.send(err);
 
-                            //res.json(paper);
-                        });
-                    }
+                    res.json(paper);
+
+                    // for (var i = 0; i < req.body.authors.length; i++){
+                    //     paper.paperAuthors.push(req.body.authors[i]);
+                    //     paper.save(function(err) {
+                    //         if (err)
+                    //             res.send(err);
+
+                    //         //res.json(paper);
+                    //     });
+                    // }
 
 
                 // After creation of paper, update paperAuthors' profiles to add papersAuthored
@@ -83,6 +91,10 @@ router.get('/api/papers', function(req, res, next) {
 
 		    // Update the existing paper
 		    paper.title = req.body.title;
+            paper.abstract = req.body.abstract;
+            paper.keywords = req.body.keywords;
+            paper.authors = req.body.authors;
+            paper.updatedAt = datenow;
 
 		    // Save the paper and check for errors
 		    paper.save(function(err) {

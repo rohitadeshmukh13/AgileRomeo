@@ -44,30 +44,29 @@ Add a 'confirm' pop-up on clicking WITHDRAW
                             <div class="form-group">
                                 <label>Authors</label>
                                 <br>
-                                <a ui-sref="home.authorProfile">Name1</a> ,
-                                <a ui-sref="home.authorProfile">Name2</a>
+                                <div ng-repeat="auth in paper.authors" style="float:left">
+                                    <a ui-sref="home.authorProfile">
+                                        {{auth.username}}
+                                    </a>
+                                    ;
+                                    &nbsp;
+                                </div>
+                                <!-- <a ui-sref="home.authorProfile">Name1</a> ,
+                                <a ui-sref="home.authorProfile">Name2</a> -->
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label>Abstract</label>
                                 <br>
-                                We explore the risk that network attackers can
-                                exploit unauthenticated Network Time Protocol (NTP) traffic to
-                                alter the time on client systems. We first discuss how an onpath
-                                attacker, that hijacks traffic to an NTP server, can quickly
-                                shift time on the server’s clients. Then, we present an extremely
-                                low-rate (single packet) denial-of-service attack that an off-path
-                                attacker, located anywhere on the network, can use to disable
-                                NTP clock synchronization on a client. Next, we show how
-                                an off-path attacker can exploit IPv4 packet fragmentation to
-                                dramatically shift time on a client. We discuss the implications
-                                of these attacks on other core Internet protocols, quantify their
-                                attack surface using Internet measurements, and suggest a few
-                                simple countermeasures that can improve the security of NTP.
+                                    {{paper.abstract}}
                             </div>
                             <div class="form-group">
                                 <label>Tags</label>
                                 <br>
-                                DSS, NetSec, NTP
+                                <!-- <div ng-repeat="keyword in paper.keywords" data-role="tagsinput">
+                                    {{keyword}}
+                                </div> -->
+                                <input type="text" data-role="tagsinput" ng-model="paper.keywords" readonly="true" disabled="true">
                             </div>
                              <div class="form-group">
                                 <label>Paper</label>
@@ -79,12 +78,12 @@ Add a 'confirm' pop-up on clicking WITHDRAW
                             <div class="form-group">
                                 <label>Date of Submission</label>
                                 <br>
-                                04/05/2016
+                                {{paper.createdAt | date:'dd MMM yyyy'}}
                             </div>
                             <div class="form-group">
                                 <label>Conference</label>
                                 <br>
-                                NetSec
+                                ACM
                             </div>
                             <button type="submit" ui-sref="home.editSub" class="btn btn-default">Edit
                             </button>

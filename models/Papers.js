@@ -6,7 +6,7 @@ var PaperSchema = new mongoose.Schema({
 	 	ref: 'User'
 	 },
 	title:String,
-	paperAuthors:[{
+	authors:[{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:'User'
 	}],
@@ -15,12 +15,24 @@ var PaperSchema = new mongoose.Schema({
 	status: {
         type: String,
         enum: ['Incomplete', 'Completed', 'Closed', 'Accepted', 'Rejected']
-        // Completed - submission completed - every field filled
+        // Completed - submission completed - (title, abstract, attachment) fields present
         // Closed - After the conference is over, auto changed to 'Closed'.
-      }
+      },
       //,
       //file type - https://www.npmjs.com/package/mongoose-file
-      //  createdAt: {type: Date, default: Date.now}, - https://scotch.io/tutorials/build-a-mean-stack-file-uploader-app-with-filestack#the-server
+    /*{
+    	timestamps: true	// automatically adds createdAt and updatedAt fields to the schema
+	}*/
+      createdAt: {
+      	type: Date, 
+      	required: true,
+      	default: Date.now
+      },
+      updatedAt: {
+      	type: Date,      	
+      	required: true,
+      	default: Date.now
+      }
 });
 
 

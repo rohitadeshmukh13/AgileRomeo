@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
 <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+<link rel="stylesheet" href="stylesheets/autocomplete.css">
 
 <style type="text/css">
 .bootstrap-tagsinput {
@@ -40,15 +41,33 @@ Input validations
                             <div class="form-group">
                                 <label>Authors</label>
                                 <br>
-                                <input class="form-control">  <!-- value="name2, name3" -->
+                                <!-- <input class="form-control" ng-model="formData.title">   -->
+                                <!-- value="name2, name3" -->
+                                <!-- <div ng-repeat="auth in formData.paperAuthors" style="float:left">
+                                    <a ui-sref="home.authorProfile">
+                                        {{auth.username}}
+                                    </a>
+                                    ;
+                                    &nbsp;
+                                </div> -->
+
+                                <span ng-repeat="author2 in formData.authors">
+                                    <a class="btn btn-social-icon btn-times" ng-click="deleteAuthor(author2);"><i class="fa fa-times"></i></a>
+                                    {{author2.username}}
+                                </span>
+                                <br/>
+                               
+                                <autocomplete ng-model="selected" data="objects" on-type="updateObjects"></autocomplete>
+
+
                             </div>
                             <div class="form-group">
                                 <label>Abstract</label>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" ng-model="formData.abstract" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Tags</label>
-                                <input type="text" value="DSS,TK,NetSec" data-role="tagsinput" class="form-control" />
+                                <input type="text" ng-model="formData.keywords" data-role="tagsinput" class="form-control" />
                             </div>
                              <div class="form-group">
                                 <label>Upload the Paper</label>
