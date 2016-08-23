@@ -10,11 +10,7 @@ var UserSchema = new mongoose.Schema({
         type: String,
         enum: ['Chair', 'User'],
         default : 'User'
-  },
-  papersAuthored:[{
-    type: Number, 
-    ref:'Paper'
-  }]
+  }
 });
 
 

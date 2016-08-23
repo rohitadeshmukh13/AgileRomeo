@@ -31,17 +31,18 @@ router.post('/register',function(req,res,next){
 
 });
 
+
 router.post('/login',function(req,res,next){
-	if(!req.body.username||!req.body.password){
-		return res.status(400).json({message:'Please fill all the fields'});
+  if(!req.body.username||!req.body.password){
+    return res.status(400).json({message:'Please fill all the fields'});
 
-	}
+  }
 
-	passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', function(err, user, info){
     if(err){ return next(err); }
 
     if(user){
-      return res.json({token: user.generateJWT()});
+      return res.json({token: user.generateJWT(),uid:user._id});
     } else {
       return res.status(401).json(info);
     }

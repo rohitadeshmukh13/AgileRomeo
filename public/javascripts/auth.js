@@ -44,11 +44,30 @@ angular.module('aromeo')
  		 });
 
 	};
-	auth.logIn = function(user){
- 		 return $http.post('/login', user).success(function(data){
-   		 auth.saveToken(data.token);
- 		 });
-	};
+
+//To provide ObjectID of the logged in user
+  auth.currentUserID = function(){
+    if(auth.isLoggedIn()){
+      return auth.currentUserObjID;
+    }
+
+  };
+  
+	// auth.logIn = function(user){
+ // 		 return $http.post('/login', user).success(function(data){
+ //   		 auth.saveToken(data.token);
+ // 		 });
+	// };
+
+auth.logIn = function(user){
+     return $http.post('/login', user).success(function(data){
+       auth.saveToken(data.token);
+       auth.currentUserObjID=data.uid;
+       console.log(auth.currentUserObjID);
+       
+     });
+  };
+
 	auth.logOut = function(){
   		$window.localStorage.removeItem('aromeo-token');
 	};

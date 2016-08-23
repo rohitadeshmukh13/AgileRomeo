@@ -4,7 +4,8 @@ node-debug ./bin/www
 
 Get the PID of the node process using your favorite method, e.g.
 
-> tasklist /FI "IMAGENAME eq node.exe"
+> 
+tasklist /FI "IMAGENAME eq node.exe"
 
 Image Name                     PID Session Name        Session#    Mem Usage
 ========================= ======== ================ =========== ============
@@ -12,10 +13,12 @@ node.exe                      3084 Console                    1     11,964 K
 
 Call the API:
 
-> node -e "process._debugProcess(3084)"
+> 
+node -e "process._debugProcess(3084)"
 
 run -
-> node-inspector
+> 
+node-inspector
 --------------------------------------------------
 
 3. Load the debugger UI

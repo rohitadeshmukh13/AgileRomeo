@@ -31,8 +31,10 @@
     function($scope,$http,$rootScope,ObjectRetriever,Users,auth){
   
   //$scope.formData = {};
+  var currUserID = auth.currentUserID();
 
         // when landing on the page, get all papers and show them
+        $scope.getAllPapers = function(id) {
         $http.get('/api/papers')
                 .success(function(data) {
                         $scope.papers = data;
@@ -40,6 +42,17 @@
                 .error(function(data) {
                         console.log('Error: ' + data);
                 });
+        };
+
+        $scope.getMyPapers = function() {
+                $http.get('/api/mypapers/' + currUserID)
+                        .success(function(data) {
+                                $scope.mypapers = data;
+                        })
+                        .error(function(data) {
+                                console.log('Error: ' + data);
+                        });
+        };
 
         $scope.createPaper = function() {
                 $http.post('/api/papers', $scope.formData)
@@ -77,6 +90,8 @@
                                 console.log('Error: ' + data);
                         });
         };
+
+        // --------------------------------------------------------------
 
         $scope.savePaper = function(paper) {
             $rootScope.ppr = paper;
@@ -143,14 +158,19 @@
             j--; 
         }
 
-        $scope.callCreatePaper = function(){
+        $scope.prepCreatePaper = function(){
             if($scope.formData.title == null || $scope.formData.title ==""){
                 return;
             }
-            Users.searchByName(auth.currentUser())
+            Users.searchById(auth.currentUserID())
                 .success(function(data) {
                     // $scope.formData.creator = data._id;
                     $scope.formData.creator = data;
+                    // creator is also an author; so if the author's list doesn't contain creator as author, add it
+                    var indx = $scope.formData.authorIDs.indexOf($scope.formData.creator._id);
+                    if(indx == -1)
+                        $scope.formData.authors.push($scope.formData.creator);
+
                     $scope.createPaper();
                 })
                 .error(function(data) {

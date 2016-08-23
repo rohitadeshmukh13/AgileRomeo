@@ -23,6 +23,64 @@ router.get('/api/papers', function(req, res, next) {
 
 });
 
+    /*router.get('/api/mypapers/:author_id', function(req, res) {
+
+        Paper.find()
+        .populate({
+            path: 'authors',
+            match: { _id: { $eq: req.params.author_id}}
+            // match returns all papers but populates only the authors which contain passed author_id
+        })
+        .exec(function(err, papers)
+        {
+            if (err)
+                res.send(err)
+
+            if(typeof papers != 'undefined')
+            {
+                var authored_papers = [];
+                var j = 0;
+                for (var i = 0; i < papers.length; i++)
+                    {
+                        if (papers[i].authors.length != 0)
+                            authored_papers[j++] = papers[i];
+                    }
+            }
+
+            res.json(authored_papers);
+        });       
+    });*/
+
+    router.get('/api/mypapers/:author_id', function(req, res) {
+
+        Paper.find()
+        .populate('authors')
+        .exec(function(err, papers)
+        {
+            if (err)
+                res.send(err)
+
+            if(typeof papers != 'undefined')
+            {
+                var authored_papers = [];
+                var j = 0;
+                for (var i = 0; i < papers.length; i++)
+                    {
+                        for (var k = 0; k < papers[i].authors.length; k++)
+                        {
+                            if(papers[i].authors[k]._id == req.params.author_id)
+                            {
+                                authored_papers[j++] = papers[i];
+                                break;
+                            }
+                        }
+                    }
+            }
+
+            res.json(authored_papers);
+        });       
+    });
+
 	router.post('/api/papers', function(req, res) {
 
         // create a paper, information comes from AJAX request from Angular
