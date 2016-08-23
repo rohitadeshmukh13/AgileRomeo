@@ -94,6 +94,13 @@
         // --------------------------------------------------------------
 
         $scope.savePaper = function(paper) {
+            paper.status =  "Incomplete";
+            if (paper.title != null && paper.title != "" && paper.abstract != null 
+                && paper.abstract != "")
+            {
+                paper.status = "Completed";
+            }
+
             $rootScope.ppr = paper;
         };
 

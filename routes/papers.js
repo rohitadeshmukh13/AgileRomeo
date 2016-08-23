@@ -156,8 +156,9 @@ router.get('/api/papers', function(req, res, next) {
 
 		    // Update the existing paper
              var statusTemp =  "Incomplete";
-            if (req.body.title != null && req.body.abstract != null)
-            statusTemp = "Completed";
+            if (req.body.title != null && req.body.title != "" && req.body.abstract != null 
+            && req.body.abstract != "")
+                statusTemp = "Completed";
 
 		    paper.title = req.body.title;
             paper.abstract = req.body.abstract;
