@@ -9,7 +9,11 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var mongoose= require('mongoose');
+var mongoose= require('mongoose'),
+_ = require('lodash');
+
+busboyBodyParser = require('busboy-body-parser'),
+app.use(busboyBodyParser());
 
 require('./models/Users');
 require('./models/Papers');

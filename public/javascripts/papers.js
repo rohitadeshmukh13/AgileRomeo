@@ -24,16 +24,31 @@
   }
 });
 
+angular.module('aromeo',[])
+.directive('fileUpload', function () {
+    return {
+        scope: true,        //create a new scope
+        link: function (scope, el, attrs) {
+            el.bind('change', function (event) {
+                var files = event.target.files;
+                for (var i = 0;i<files.length;i++) {
+                    //emit event upward
+                    scope.$emit("fileSelected", { file: files[i] });
+                }                                       
+            });
+        }
+    };
+});
 
-  angular.module('aromeo',['autocomplete','autocomp','tango'])
 
-  .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth', 
-    function($scope,$http,$rootScope,ObjectRetriever,Users,auth){
+  angular.module('aromeo',['autocomplete','autocomp','tango','ngFileUpload'])
+
+  .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth','Upload','$timeout',
+    function($scope,$http,$rootScope,ObjectRetriever,Users,auth,Upload,$timeout){
   
-  //$scope.formData = {};
   var currUserID = auth.currentUserID();
+  $scope.fileurl = "#";
 
-        // when landing on the page, get all papers and show them
         $scope.getAllPapers = function(id) {
         $http.get('/api/papers')
                 .success(function(data) {
@@ -57,8 +72,10 @@
         $scope.createPaper = function() {
                 $http.post('/api/papers', $scope.formData)
                         .success(function(data) {
-                                //$scope.formData = {}; // clear the form so our user is ready to enter another
-                                $scope.papers = data;
+                                $scope.paper = data;
+                                if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
+                                    $scope.uploadFile($scope.paperfile,data._id);
+                                }
                         })
                         .error(function(data) {
                                 console.log('Error: ' + data);
@@ -70,10 +87,15 @@
                 if($scope.formData.title == null || $scope.formData.title ==""){
                     return;
                 }
+                if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
+                    $scope.formData.filename = $scope.paperfile.name;
+                }
                 $http.put('/api/papers/' + id, $scope.formData)
                         .success(function(data) {
-                                //$scope.formData = {}; // clear the form so our user is ready to enter another
-                                $scope.papers = data;
+                                $scope.paper = data;
+                                if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
+                                    $scope.uploadFile($scope.paperfile,data._id);
+                                }
                         })
                         .error(function(data) {
                                 console.log('Error: ' + data);
@@ -84,7 +106,62 @@
         $scope.deletePaper = function(id) {
                 $http.delete('/api/papers/' + id)
                         .success(function(data) {
-                                $scope.papers = data;
+                                $scope.deleteFile(id);
+                                console.log('Success!');
+                        })
+                        .error(function(data) {
+                                console.log('Error: ' + data);
+                        });
+        };
+
+
+        $scope.selectedFiles = [];
+        $scope.dataUrls = [];
+
+        $scope.onFileSelect = function($files) {
+
+            $scope.selectedFiles['selectedfile'] = $files[0];
+
+            var $file = $files[0];
+            if (window.FileReader && $file.type.indexOf('selectedfile') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($files[0]);
+
+                fileReader.onload = function(e) {
+                    $timeout(function() {
+                        $scope.dataUrls['selectedfile'] = e.target.result;
+                    });
+                }
+            }    
+        }
+
+        $scope.uploadFile =  function(file,paper_id){
+
+            Upload.upload({
+              data: {paper_id: paper_id},
+              url: 'api/upload',
+              file: $scope.selectedFiles['selectedfile']
+
+          }).then(function (response) {
+            $timeout(function () {
+                file.result = response.data;
+            });
+        }, function (response) {
+            if (response.status > 0)
+                $scope.errorMsg = response.status + ': ' + response.data;
+        });
+      }
+
+
+        $scope.downloadFile = function(paper_id) {
+            $scope.fileurl = "/api/download/" + paper_id;
+        }
+
+        // delete the attachment after deleting the paper
+        $scope.deleteFile = function(paper_id) {
+                $http.delete('/api/deletefile/' + paper_id)
+                        .success(function(data) {
+                                console.log('Success!');
                         })
                         .error(function(data) {
                                 console.log('Error: ' + data);
@@ -96,7 +173,7 @@
         $scope.savePaper = function(paper) {
             paper.status =  "Incomplete";
             if (paper.title != null && paper.title != "" && paper.abstract != null 
-                && paper.abstract != "")
+                && paper.abstract != "" && paper.filename != null && paper.filename != "")
             {
                 paper.status = "Completed";
             }
@@ -114,12 +191,6 @@
         $scope.formData = new Object();
         var j = 0;
         $scope.formData.authors = [];
-        /*if(typeof $scope.formData.authors === 'undefined' || $scope.formData.authors === null){
-            $scope.formData.authors = [];
-        }
-        else{
-            j = $scope.formData.authors.length;
-        }*/
         $scope.formData.authorIDs = [];
 
         Users.get()
@@ -169,7 +240,10 @@
             if($scope.formData.title == null || $scope.formData.title ==""){
                 return;
             }
-            Users.searchById(auth.currentUserID())
+            if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
+                $scope.formData.filename = $scope.paperfile.name;
+            }
+            Users.searchById(currUserID)
                 .success(function(data) {
                     // $scope.formData.creator = data._id;
                     $scope.formData.creator = data;

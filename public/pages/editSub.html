@@ -76,8 +76,9 @@ Input validations
                             </div>
                              <div class="form-group">
                                 <label>Upload the Paper</label>
-                                <br>attack-ntp.pdf
-                                <input type="file">
+                                <!-- <br>
+                                {{formData.filename}} -->
+                                <input type="file" ng-model="paperfile" name="paperfile" ngf-select="onFileSelect($files);">
                             </div>
                             <button type="submit" name="submitBtn" ui-sref="home.viewSub" class="btn btn-default" ng-disabled="EditSubForm.$invalid" ng-click="updatePaper(formData._id);savePaper(formData);">
                                 Update

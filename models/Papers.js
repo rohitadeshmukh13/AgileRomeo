@@ -12,17 +12,13 @@ var PaperSchema = new mongoose.Schema({
 	}],
 	abstract:String,
 	keywords:[String],
+	filename:String,
 	status: {
         type: String,
         enum: ['Incomplete', 'Completed', 'Closed', 'Accepted', 'Rejected']
         // Completed - submission completed - (title, abstract, attachment) fields present
         // Closed - After the conference is over, auto changed to 'Closed'.
       },
-      //,
-      //file type - https://www.npmjs.com/package/mongoose-file
-    /*{
-    	timestamps: true	// automatically adds createdAt and updatedAt fields to the schema
-	}*/
       createdAt: {
       	type: Date, 
       	required: true,

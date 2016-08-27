@@ -46,6 +46,13 @@ angular.module('aromeo', [
                 }),
                 $ocLazyLoad.load(
                 {
+                  name:'ngFileUpload',
+                  files:["bower_components/ng-file-upload/ng-file-upload.js",
+                         "bower_components/ng-file-upload/ng-file-upload.min.js",
+                         "bower_components/ng-file-upload/ng-file-upload-shim.min.js"]
+                }),
+                $ocLazyLoad.load(
+                {
                   name:'ngAnimate',
                   files:['bower_components/angular-animate/angular-animate.js']
                 })

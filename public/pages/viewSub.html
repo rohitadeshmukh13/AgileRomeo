@@ -66,7 +66,7 @@ Add a 'confirm' pop-up on clicking WITHDRAW
                                 <!-- <div ng-repeat="keyword in paper.keywords" data-role="tagsinput">
                                     {{keyword}}
                                 </div> -->
-                                <input type="text" data-role="tagsinput" ng-model="paper.keywords" readonly="true" disabled="true">
+                                <input type="text" data-role="tagsinput" style="border:none" ng-model="paper.keywords" readonly="true" disabled="true">
                             </div>
                              <div class="form-group">
                                 <label>Paper</label>
@@ -89,6 +89,13 @@ Add a 'confirm' pop-up on clicking WITHDRAW
                                 <label>Conference</label>
                                 <br>
                                 ACM
+                            </div>
+                            <div class="form-group">
+                                <label>Attachment</label>
+                                <br>
+                                <a download="{{paper.filename}}" href="{{fileurl}}" ng-click="downloadFile(paper._id);">
+                                    {{paper.filename}}
+                                </a>
                             </div>
                             <button type="submit" ui-sref="home.editSub" class="btn btn-default">Edit
                             </button>
