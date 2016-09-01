@@ -4,9 +4,9 @@
  * @name tango.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the Agileromeo app
+ * Controller of the Tango app
  */
- var app = angular.module('usersModule',[]);
+ var app = angular.module('tango',[]);
  // angular.module('tango',[])
  app.factory('Users', function($http){
    return {

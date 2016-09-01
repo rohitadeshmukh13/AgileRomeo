@@ -4,7 +4,7 @@
  * @name tango.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the Agileromeo app
+ * Controller of the Tango app
  */
  angular.module('papersModule',[])
  .factory('Papers', function($http){
