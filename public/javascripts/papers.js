@@ -24,24 +24,7 @@
   }
 });
 
-angular.module('tango',[])
-.directive('fileUpload', function () {
-    return {
-        scope: true,        //create a new scope
-        link: function (scope, el, attrs) {
-            el.bind('change', function (event) {
-                var files = event.target.files;
-                for (var i = 0;i<files.length;i++) {
-                    //emit event upward
-                    scope.$emit("fileSelected", { file: files[i] });
-                }                                       
-            });
-        }
-    };
-});
-
-
-  angular.module('tango',['autocomplete','autocomp','tango','ngFileUpload'])
+  angular.module('papersModule',['autocomplete','autocomp','ngFileUpload'])
 
   .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth','Upload','$timeout',
     function($scope,$http,$rootScope,ObjectRetriever,Users,auth,Upload,$timeout){
