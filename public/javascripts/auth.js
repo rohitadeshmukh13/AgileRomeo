@@ -1,21 +1,21 @@
 'use strict';
 /**
  * @ngdoc function
- * @name aromeo.controller:MainCtrl
+ * @name tango.controller:MainCtrl
  * @description
  * # MainCtrl
  * Controller of the Agileromeo app
  */
-angular.module('aromeo')
+angular.module('tango')
   .factory('auth', ['$http','$window', function($http,$window){
   	var auth={};
 
   	auth.saveToken=function(token){
-  		$window.localStorage['aromeo-token']=token;
+  		$window.localStorage['tango-token']=token;
   	}
 
   	auth.getToken=function(token){
-  		return $window.localStorage['aromeo-token'];
+  		return $window.localStorage['tango-token'];
   	}
 
   	auth.isLoggedIn = function(){
@@ -69,7 +69,7 @@ auth.logIn = function(user){
   };
 
 	auth.logOut = function(){
-  		$window.localStorage.removeItem('aromeo-token');
+  		$window.localStorage.removeItem('tango-token');
 	};
   	return auth;
   		
@@ -78,7 +78,7 @@ auth.logIn = function(user){
   ]);
 
 
-angular.module('aromeo').controller('AuthCtrl', ['$scope','$state','auth', function($scope,$state,auth){
+angular.module('tango').controller('AuthCtrl', ['$scope','$state','auth', function($scope,$state,auth){
 	$scope.user={};
 	$scope.register=function(){
 		auth.register($scope.user).error(function(error){

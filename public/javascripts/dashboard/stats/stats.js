@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
     .directive('stats',function() {
     	return {
   		templateUrl:'javascripts/dashboard/stats/stats.html',

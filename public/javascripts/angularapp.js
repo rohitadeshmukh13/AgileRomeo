@@ -1,13 +1,13 @@
 'use strict';
 /**
  * @ngdoc overview
- * @name aromeo
+ * @name tango
  * @description
- * # aromeo
+ * # tango
  *
  * Main module of the application.
  */
-angular.module('aromeo', [
+angular.module('tango', [
     'oc.lazyLoad',
     'ui.router',
     'ui.bootstrap',
@@ -30,7 +30,7 @@ angular.module('aromeo', [
             loadMyDirectives:function($ocLazyLoad){
                 return $ocLazyLoad.load(
                 {
-                    name:'aromeo',
+                    name:'tango',
                     files:[
                     'javascripts/header/header.js',
                     'javascripts/header/header-notification/header-notification.js',
@@ -86,7 +86,7 @@ angular.module('aromeo', [
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'tango',
               files:[
               'javascripts/main.js',
               'javascripts/timeline/timeline.js',
@@ -119,7 +119,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'tango',
               files:[
               
               
@@ -156,7 +156,7 @@ angular.module('aromeo', [
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'tango',
               files:[
               
               'javascripts/angularApp.js',
@@ -179,7 +179,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'papersModule',
               files:[
               'javascripts/main.js',
               'javascripts/papers.js',
@@ -200,7 +200,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'papersModule',
               files:[
               'javascripts/main.js',
               'javascripts/papers.js'
@@ -222,7 +222,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'papersModule',
               files:[
               'javascripts/main.js',
               'javascripts/papers.js'
@@ -239,7 +239,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'papersModule',
               files:[
               'javascripts/main.js',
               'javascripts/papers.js',
@@ -260,7 +260,7 @@ angular.module('aromeo', [
        resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
-              name:'aromeo',
+              name:'usersModule',
               files:[
               'javascripts/main.js',
               'javascripts/users.js'

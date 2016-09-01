@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
 	.directive('timeline',function() {
     return {
         templateUrl:'javascripts/timeline/timeline.html',

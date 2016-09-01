@@ -7,7 +7,7 @@
  * # adminPosHeader
  */
 
-angular.module('aromeo')
+angular.module('tango')
   .directive('sidebar',['$location',function() {
     return {
       templateUrl:'javascripts/sidebar/sidebar.html',

@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
 	.directive('chat',function(){
 		return {
         templateUrl:'javascripts/chat/chat.html',

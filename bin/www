@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('aromeo:server');
+var debug = require('debug')('tango:server');
 var http = require('http');
 
 /**

@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
 	.directive('taskspreview',function(){
 		return {
         templateUrl:'javascripts/notifications/notifications.html',

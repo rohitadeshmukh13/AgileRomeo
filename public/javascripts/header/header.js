@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
 	.directive('header',function(){
 		return {
         templateUrl:'javascripts/header/header.html',

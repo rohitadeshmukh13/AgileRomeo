@@ -1,12 +1,12 @@
 'use strict';
 /**
  * @ngdoc function
- * @name aromeo.controller:MainCtrl
+ * @name tango.controller:MainCtrl
  * @description
  * # MainCtrl
  * Controller of the Agileromeo app
  */
- angular.module('aromeo',[])
+ angular.module('papersModule',[])
  .factory('Papers', function($http){
    return {
     get : function() {
@@ -24,7 +24,7 @@
   }
 });
 
-angular.module('aromeo',[])
+angular.module('tango',[])
 .directive('fileUpload', function () {
     return {
         scope: true,        //create a new scope
@@ -41,7 +41,7 @@ angular.module('aromeo',[])
 });
 
 
-  angular.module('aromeo',['autocomplete','autocomp','tango','ngFileUpload'])
+  angular.module('tango',['autocomplete','autocomp','tango','ngFileUpload'])
 
   .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth','Upload','$timeout',
     function($scope,$http,$rootScope,ObjectRetriever,Users,auth,Upload,$timeout){

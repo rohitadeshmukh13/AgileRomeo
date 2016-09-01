@@ -6,7 +6,7 @@
  * @description
  * # adminPosHeader
  */
-angular.module('aromeo')
+angular.module('tango')
 	.directive('headerNotification',function(){
 		return {
         templateUrl:'javascripts/header/header-notification/header-notification.html',

@@ -1,12 +1,12 @@
 'use strict';
 /**
  * @ngdoc function
- * @name aromeo.controller:MainCtrl
+ * @name tango.controller:MainCtrl
  * @description
  * # MainCtrl
  * Controller of the Agileromeo app
  */
- var app = angular.module('tango',[]);
+ var app = angular.module('usersModule',[]);
  // angular.module('tango',[])
  app.factory('Users', function($http){
    return {
