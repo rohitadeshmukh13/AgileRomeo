@@ -24,7 +24,7 @@
   }
 });
 
-  angular.module('papersModule',['autocomplete','autocomp','ngFileUpload'])
+  angular.module('papersModule',['usersModule','autocomplete','autocomp','ngFileUpload'])
 
   .controller('PapersCtrl', ['$scope','$http','$rootScope','ObjectRetriever','Users','auth','Upload','$timeout',
     function($scope,$http,$rootScope,ObjectRetriever,Users,auth,Upload,$timeout){
@@ -59,6 +59,7 @@
                                 if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
                                     $scope.uploadFile($scope.paperfile,data._id);
                                 }
+                                //$stateProvider.state('home.listMySubs');
                         })
                         .error(function(data) {
                                 console.log('Error: ' + data);

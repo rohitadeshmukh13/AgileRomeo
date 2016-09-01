@@ -6,7 +6,7 @@
  * # MainCtrl
  * Controller of the Tango app
  */
- var app = angular.module('tango',[]);
+ var app = angular.module('usersModule',[]);
  // angular.module('tango',[])
  app.factory('Users', function($http){
    return {

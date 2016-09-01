@@ -6,6 +6,6 @@
  * # MainCtrl
  * Controller of the Agileromeo app
  */
-angular.module('tango',['papersModule','auth'])
+angular.module('tango',['usersModule','papersModule'])
   .controller('MainCtrl', function() {
   });
