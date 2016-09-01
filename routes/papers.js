@@ -17,7 +17,6 @@ router.get('/api/papers', function(req, res, next) {
         .populate('authors')
         .exec(function(err, papers)
         {
-
             if (err)
             	res.send(err)
 
@@ -25,36 +24,6 @@ router.get('/api/papers', function(req, res, next) {
         });
 
 });
-
-    /* // smarter way that doesn't work
-
-    router.get('/api/mypapers/:author_id', function(req, res) {
-
-        Paper.find()
-        .populate({
-            path: 'authors',
-            match: { _id: { $eq: req.params.author_id}}
-            // match returns all papers but populates only the authors which contain passed author_id
-        })
-        .exec(function(err, papers)
-        {
-            if (err)
-                res.send(err)
-
-            if(typeof papers != 'undefined')
-            {
-                var authored_papers = [];
-                var j = 0;
-                for (var i = 0; i < papers.length; i++)
-                    {
-                        if (papers[i].authors.length != 0)
-                            authored_papers[j++] = papers[i];
-                    }
-            }
-
-            res.json(authored_papers);
-        });       
-    });*/
 
     router.get('/api/mypapers/:author_id', function(req, res) {
 
@@ -86,6 +55,36 @@ router.get('/api/papers', function(req, res, next) {
         });       
     });
 
+        /* // smarter way that doesn't work
+
+    router.get('/api/mypapers/:author_id', function(req, res) {
+
+        Paper.find()
+        .populate({
+            path: 'authors',
+            match: { _id: { $eq: req.params.author_id}}
+            // match returns all papers but populates only the authors which contain passed author_id
+        })
+        .exec(function(err, papers)
+        {
+            if (err)
+                res.send(err)
+
+            if(typeof papers != 'undefined')
+            {
+                var authored_papers = [];
+                var j = 0;
+                for (var i = 0; i < papers.length; i++)
+                    {
+                        if (papers[i].authors.length != 0)
+                            authored_papers[j++] = papers[i];
+                    }
+            }
+
+            res.json(authored_papers);
+        });       
+    });*/
+
 	router.post('/api/papers', function(req, res) {
 
         // create a paper, information comes from AJAX request from Angular
@@ -97,60 +96,20 @@ router.get('/api/papers', function(req, res, next) {
 
         Paper.create({
             title : req.body.title,
-            //paperAuthors : req.body.authors,
             abstract : req.body.abstract,
             keywords : req.body.keywords,
 
             _creator : req.body.creator,
-            authors : req.body.authors, // need to push? Paper.paperAuthors.push()?
+            authors : req.body.authors,
             filename : req.body.filename,
             status
             
         }, function(err, paper) {
             if (err)
                 res.send(err);
-            else {
-                    // required ->
-                    res.json(paper);
 
-                    // no need to store the papers in users!! ->
-
-                    // for (var i = 0; i < req.body.authors.length; i++){
-                    //     paper.paperAuthors.push(req.body.authors[i]);
-                    //     paper.save(function(err) {
-                    //         if (err)
-                    //             res.send(err);
-
-                    //         //res.json(paper);
-                    //     });
-                    // }
-
-
-                // After creation of paper, update paperAuthors' profiles to add papersAuthored
-                // for all UserObj.papersAuthored.push(paper);
-
-                // for (var i = 0; i < paper.paperAuthors.length; i++){
-
-                //     paper.paperAuthors[i].push(paper);
-                    
-                    // User
-                    // .find({_id : paper.paperAuthors[i]._id})
-                    // .exec(function(err, user){
-
-                    //     console.log('#  User:::::::::: ', user);
-
-                    //     user.papersAuthored.push(paper);
-
-                    //     user.save(function(err) {
-                    //         if (err)
-                    //             res.send(err);
-
-                    //         res.json(user);
-                    //     });
-                    // });
-
-                    // }
-                }
+            // required ->
+            res.json(paper);
 
             });
 
@@ -202,13 +161,6 @@ router.get('/api/papers', function(req, res, next) {
             return res.status(200).send({
                 message: 'Success!'
             });
-
-            // get and return all the papers after you delete
-            // Paper.find(function(err, papers) {
-            //     if (err)
-            //         res.send(err)
-            //     res.json(papers);
-            // });
         });
     });
 
@@ -228,14 +180,6 @@ router.get('/api/papers', function(req, res, next) {
 	router.get('/api/papers/:paper', function(req, res) {
 		res.json(req.paper);
 	});
-
-    // router.route('/upload/:filename')
-    //     .get(upload.read);
-    
-    
-    // router.route('/upload')
-    //     .post(upload.create);
- 
  
 router.post('/api/upload', function(req, res) {
                 
@@ -268,7 +212,6 @@ router.post('/api/upload', function(req, res) {
  
 router.get('/api/download/:paper_id', function(req, res) {
  
-    //gfs.files.find({ filename: req.params.filename }).toArray(function (err, files) {
     if(typeof req.params.paper_id != 'undefined' || req.params.paper_id != null)
     {
         gfs.files.find({ metadata: req.params.paper_id }).toArray(function (err, files) {
