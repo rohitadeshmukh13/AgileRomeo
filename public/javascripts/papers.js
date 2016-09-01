@@ -78,6 +78,7 @@
                         .success(function(data) {
                                 $scope.paper = data;
                                 if(typeof $scope.paperfile != 'undefined' && $scope.paperfile != null){
+                                    $scope.deleteFile(data._id);
                                     $scope.uploadFile($scope.paperfile,data._id);
                                 }
                         })
@@ -87,6 +88,7 @@
         };
 
         // delete a paper after checking it
+        // id is the paper id
         $scope.deletePaper = function(id) {
                 $http.delete('/api/papers/' + id)
                         .success(function(data) {
