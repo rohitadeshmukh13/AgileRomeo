@@ -9,18 +9,15 @@
  angular.module('papersModule',[])
  .factory('Papers', function($http){
    return {
-    get : function() {
-      return $http.get('/api/papers');
+    getAllPapers : function() {
+        return $http.get('/api/papers');
     },
-    create : function(paperData) {
-      return $http.post('/api/papers', paperData);
+    getMyPapers : function(currUserID) {
+        return $http.get('/api/mypapers/' + currUserID)
     },
-    update : function(id, paperData) {
-      return $http.post('/api/papers/' + id, paperData);
+    getPaper : function(paper_id) {
+        return $http.get('/api/papers/' + paper_id)
     },
-    delete : function(id) {
-      return $http.delete('/api/papers/' + id);
-    }
   }
 });
 
@@ -33,7 +30,7 @@
   $scope.fileurl = "#";
 
         $scope.getAllPapers = function(id) {
-        $http.get('/api/papers')
+            $http.get('/api/papers')
                 .success(function(data) {
                         $scope.papers = data;
                 })
@@ -46,6 +43,16 @@
                 $http.get('/api/mypapers/' + currUserID)
                         .success(function(data) {
                                 $scope.mypapers = data;
+                        })
+                        .error(function(data) {
+                                console.log('Error: ' + data);
+                        });
+        };
+
+        $scope.getPaper = function(paper_id) {
+                $http.get('/api/papers/' + paper_id)
+                        .success(function(data) {
+                                $scope.thepaper = data;
                         })
                         .error(function(data) {
                                 console.log('Error: ' + data);
