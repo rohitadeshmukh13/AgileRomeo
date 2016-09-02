@@ -168,7 +168,9 @@ router.get('/api/papers', function(req, res, next) {
 	router.param('paper', function(req, res, next, id) {
 	  var query = Paper.findById(id);
 
-	  query.exec(function (err, paper){
+	  query
+      .populate('authors')
+      .exec(function (err, paper){
 	    if (err) { return next(err); }
 	    if (!paper) { return next(new Error('can\'t find paper')); }
 
